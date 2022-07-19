@@ -1,0 +1,7 @@
+exec customprint()
+exec customprint(aaa)
+exec customprint(bbb, ccc)
+exec customprint("aaa")
+exec customprint("bbb", "ccc")
+exec customprint(aaa, "bbb")
+exec log("test", "test2", a)

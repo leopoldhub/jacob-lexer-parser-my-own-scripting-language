@@ -1,0 +1,44 @@
+%modulename CalculatorLexer
+
+%%
+
+identifier = [_a-zA-Z][_a-zA-Z0-9]*
+defined = and|elif|global|or|assert|else|if|except|pass|break|print|exec|in|raise|continue|finally|is|return|for|lambda|try|del|not|while
+quote1 = ["]([^"\\\n]|\\(.|\n))*["]
+quote2 = [']([^'\\\n]|\\(.|\n))*[']
+
+%%
+
+<>\n\r|\r\n|\n|\r    {return "EOL"}
+
+<>#.*    {return "COMMENT"}
+
+<>{defined}    {return "DEFINED"}
+
+<>class    {return "CLASS"}
+
+<>def    {return "DEF"}
+
+<>{identifier}(\.{identifier})*    {return "ID"}
+
+<>\:    {return "COLON"}
+<>\;    {return "SEMICOLON"}
+<>\.    {return "DOT"}
+<>\,    {return "COMMA"}
+<>\(    {return "LBRACE"}
+<>\)    {return "RBRACE"}
+<>\*    {return "STAR"}
+
+<>{quote1}    {return "MESSAGE"}
+<>{quote2}    {return "MESSAGE"}
+
+<>\t+    {this.jjval = this.jjtext.length;return "INDENT"}
+
+<>^\t+    {this.jjval = this.jjtext.length;return "INDENT"}
+
+<>\s+    {}
+
+<>.    {return "OTHER"}
+
+<>$    {return "EOF"}
+

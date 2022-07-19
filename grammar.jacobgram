@@ -1,0 +1,27 @@
+%modulename CalculatorParser
+
+%left 'COMMA'
+
+Program = { Statement } function(){};
+
+Statement = Expression function(exp){
+  //console.log(exp)
+  if(exp?.name === "exec") {
+    const args = exp.args.map(({name, message, id}) => {
+      if(name === "ID")
+        return this[id];
+      return message
+    })
+    this[exp.id](...args);
+  }
+};
+
+Expression = 'DEFINED' 'ID' 'LBRACE' Expression 'RBRACE' function(defined, id, _, args){return {name: defined, id, args}}
+ | 'DEFINED' 'ID' 'LBRACE' 'RBRACE' function(defined, id){return {name: defined, id, args: []}}
+ | Expression 'COMMA' Expression function(exp1, _, exp2){return [...exp1, ...exp2]}
+ | 'ID' function(id){return [{name: "ID", id}]}
+ | 'MESSAGE' function(message){return [{name: "MESSAGE", message: message.slice(1, -1)}]}
+ | 'INDENT' function(indent){return {name: "INDENT", value: indent}}
+ | 'EOL' function(){return {name: "EOL"}}
+ | 'EOF' function(){return {name: "EOF"}}
+;

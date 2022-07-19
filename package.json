@@ -1,0 +1,30 @@
+{
+	"name": "jacob-lexer-parser-calculator-test",
+	"version": "1.0.0",
+	"description": "test of jacob lexer+parser with a simple calculator",
+	"main": "index.js",
+	"scripts": {
+		"build:tokens": "npx jacob -t tokens.jacoblex",
+		"build:grammar": "npx jacob -g grammar.jacobgram",
+		"build": "npm run build:tokens && npm run build:grammar",
+		"start": "node .",
+		"dev": "nodemon -q index.js"
+	},
+	"keywords": [
+		"lexer",
+		"parser",
+		"jacob",
+		"calculator",
+		"javascript"
+	],
+	"author": "leopoldhub",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/leopoldhub/jacob-lexer-parser-calculator-test"
+	},
+	"license": "ISC",
+	"dependencies": {
+		"jacob": "^1.0.5",
+		"nodemon": "^2.0.19"
+	}
+}
